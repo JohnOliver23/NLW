@@ -2,11 +2,15 @@ import 'dotenv/config'
 
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
+import multipart from '@fastify/multipart'
 import fastify from 'fastify'
 import { authRotes } from './routes/auth'
 import { memoriesRoutes } from './routes/memories'
+import { uploadRoutes } from './routes/upload'
 
 const app = fastify()
+
+app.register(multipart)
 
 app.register(cors, {
   origin: true
@@ -17,6 +21,7 @@ app.register(jwt, {
 })
 
 app.register(authRotes)
+app.register(uploadRoutes)
 app.register(memoriesRoutes)
 
 
